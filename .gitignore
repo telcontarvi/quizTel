@@ -45,3 +45,4 @@ Temporary Items
 # Exluidos Manualmente
 node_modules
 npm-debug.log
+quiz.sqlite
