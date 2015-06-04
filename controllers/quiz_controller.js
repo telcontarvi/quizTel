@@ -20,8 +20,14 @@ exports.index=function(req,res){
 		search="%"+search+"%";
 		search=search.toUpperCase();
 	}
-	models.Quiz.findAll({where:["upper(pregunta) like ?",search], order:"pregunta" }).then(function(quizes){
-		res.render("quizes/index.ejs",{quizes:quizes, search:req.query.search, errors:[]});
+	var whereArray=["upper(pregunta) like ?",search];
+	if(req.query.tema && req.query.tema.trim().length>0){
+		whereArray[0]+=" and tema=?";
+		whereArray[2]=req.query.tema;
+	}
+
+	models.Quiz.findAll({where:whereArray, order:"pregunta" }).then(function(quizes){
+		res.render("quizes/index.ejs",{quizes:quizes, search:req.query.search, tema:req.query.tema, errors:[]});
 	}).catch(function(error){next(error)});
 };
 

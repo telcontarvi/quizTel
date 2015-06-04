@@ -1,24 +1,40 @@
 <form method="get" action="/quizes/">
-	Filtrar preguntas:<p />			
-	<input type="text" name="search" value="" />
-	<input type="submit" value="Enviar" />			
+	Filtrar preguntas:<p />	
+	Por Texto: <input type="text" name="search" value="" />	</p>
+	Por Tema: 
+	<select id="tema" name="tema">
+	<option value="">----</option>
+	  <option value="Otros">Otros</option>
+	  <option value="Humanidades">Humanidades</option>
+	  <option value="Ocio">Ocio</option>
+	  <option value="Ciencia">Ciencia</option>
+	  <option value="Tecnologia">Tecnología</option>
+	</select></p>
+	<input type="submit" value="Filtrar" />			
 </form>
 
 <h3>Filtro actual:
 <% if(search && search.trim().length>0){ %>
-	<%= search %>
+	<%= search %>,	
 <% }else{ %>
-	Ninguno
+	Ninguno,
+<%} %>
+ Tema:
+<% if(tema && tema.trim().length>0){ %>
+	<%= tema %>
+<% }else{ %>
+	Todos
 <%} %>
 </h3>
 
 <table>
 <% var i; for(i=0;i<quizes.length;i++){ %>
 	<tr>
-		<td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
-		<td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
+		<td>Tema: <%= quizes[i].tema %></td>
+		<td><a href="/quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
+		<td><a href="/quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
 		<td>
-			<form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
+			<form method="post" action="/quizes/<%= quizes[i].id %>?_method=delete">
 				<button type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');">
 					borrar
 				</button>	
