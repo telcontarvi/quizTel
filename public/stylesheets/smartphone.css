@@ -1,5 +1,19 @@
-body {background: #333;}
-#page-wrap:after {content: "Smartphone Layout";}
-h2 span, section h3 {display: none;}
-body {font-size: xx-large;}
-footer,input {font-size: large;}
+body             { background: #333; }
+
+#page-wrap:after { content: "Smartphone Layout"; }
+
+h2 span, section h3
+                 { display: none; }
+body             { font-size: xx-large; }
+input, button    { font-size: x-large; }
+footer           { font-size: large; }
+
+.author_description{
+	float: none;
+	text-align: left;
+	font-size:  x-large;
+
+}
+.author_image{
+	display: none;
+}
