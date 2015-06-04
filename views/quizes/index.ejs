@@ -1,3 +1,15 @@
+	Filtrar preguntas:<p />			
+	<input type="text" name="search" value="" />
+	<input type="submit" value="Enviar" />			
+</form>
+
+<h3>Filtro actual:
+<% if(search && search.trim().length>0){ %>
+<% }else{ %>
+	Ninguno
+<%} %>
+</h3>
+
 <table>
 <% var i; for(i=0;i<quizes.length;i++){ %>
 <tr><td>
