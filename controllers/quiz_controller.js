@@ -21,12 +21,12 @@ exports.index=function(req,res){
 		search=search.toUpperCase();
 	}
 	models.Quiz.findAll({where:["upper(pregunta) like ?",search], order:"pregunta" }).then(function(quizes){
-		res.render("quizes/index.ejs",{quizes:quizes, search:req.query.search});
+		res.render("quizes/index.ejs",{quizes:quizes, search:req.query.search, errors:[]});
 	}).catch(function(error){next(error)});
 };
 
 exports.show=function(req,res){		
-	res.render("quizes/show",{quiz:req.quiz});	
+	res.render("quizes/show",{quiz:req.quiz, errors:[]});	
 };
 
 //GET quizes/answer
@@ -35,19 +35,28 @@ exports.answer=function(req,res){
 	if(req.query.respuesta && req.query.respuesta.toUpperCase()===req.quiz.respuesta.toUpperCase()){
 		resultado="Correcto";
 	}	
-	res.render("quizes/answer",{quiz:req.quiz, respuesta:resultado});
+	res.render("quizes/answer",{quiz:req.quiz, respuesta:resultado, errors:[]});
 };
 
 exports.new=function(req,res){	
 	var quiz=models.Quiz.build(
 			{pregunta:"Pregunta",respuesta:"Respuesta"}
 		);	
-	res.render("quizes/new",{quiz:quiz});
+	res.render("quizes/new",{quiz:quiz, errors:[]});
 };
 
 exports.create=function(req,res){	
 	var quiz=models.Quiz.build(req.body.quiz);
-	quiz.save({fields:["pregunta","respuesta"]}).then(function(){
-		res.redirect("/quizes");
-	});	
+	quiz.validate().then(
+		function(err){
+			if(err){
+				res.render("quizes/new",{quiz:quiz, errors:err.errors});
+			}else{
+				quiz.save({fields:["pregunta","respuesta"]}).then(function(){
+					res.redirect("/quizes");
+				});		
+			}
+		}
+	);
+	
 };
