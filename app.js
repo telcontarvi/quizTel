@@ -8,6 +8,8 @@ var partials = require("express-partials")
 var methodOverride = require("method-override");
 var session=require("express-session");
 var routes = require('./routes/index');
+var sessionController=require ("./controllers/session_controller");
+var statsController=require ("./controllers/stats_controller");
 
 var app = express();
 
@@ -32,6 +34,16 @@ app.use(function(req,res,next){
     req.session.redir=req.path;
   }
   res.locals.session=req.session;
+  next();
+});
+
+app.use(function(req,res,next){
+  sessionController.checkTimeOut(req,res);
+  next();
+});
+
+app.use(function(res,req,next){
+  statsController.getStats(res,req,next);
   next();
 });
 
