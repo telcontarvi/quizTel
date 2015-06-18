@@ -1,0 +1,12 @@
+<table class="statsTable">
+<tr>
+	<td class="statsCell"><strong>Estad&iacute;stica</strong></td>
+	<td class="statsCell"><strong>Valor</strong></td>	
+</tr>
+<% for( var key in stats){ %>
+<tr>
+	<td class="statsCell"> <%= key %> </td>	
+	<td class="statsCell"> <%= stats[key] %> </td>			
+</tr>	
+<% } %>
+</table>

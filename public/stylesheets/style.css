@@ -40,3 +40,7 @@ nav span{
 	float: left;
 	max-width: 90px;
 }
+
+.statsTable, .statsCell {
+    border: 1px solid black;
+}

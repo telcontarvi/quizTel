@@ -18,12 +18,8 @@ exports.getStats=function(req,res,next){
 			}			
 		}
 		if(stats["N Preguntas"]>0){
-			stats["N Comentarios por Pregunta"]=stats["N Comentarios"]/stats["N Preguntas"];
-		}
-
-		for( var key in stats){
-			console.log(key+": "+stats[key]);
-		}
-		//res.render("quizes/index.ejs",{quizes:quizes, search:req.query.search, tema:req.query.tema, errors:[]});
+			stats["N Comentarios por Pregunta"]=(stats["N Comentarios"]/stats["N Preguntas"]).toFixed(2);
+		}		
+		res.render("quizes/stats.ejs",{stats:stats, errors:[]});
 	}).catch(function(error){next(error)});
 }
