@@ -22,7 +22,7 @@ app.use(partials());
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({limit: '50mb'}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser("Quiz 2015"));
 app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }));
 app.use(methodOverride("_method"));
